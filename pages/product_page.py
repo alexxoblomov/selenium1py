@@ -1,7 +1,5 @@
 from .base_page import BasePage
 from .locators import ProductPageLocators
-from selenium.webdriver.common.by import By
-
 
 class ProductPage(BasePage):
     def add_to_basket(self):
@@ -9,7 +7,15 @@ class ProductPage(BasePage):
         button.click()
 
     def message_about_adding(self):
-        self.browser.find_element(*ProductPageLocators.MESSAGE_ABOUT_ADDING)
+        self.is_element_present(*ProductPageLocators.MESSAGE_ABOUT_ADDING)
+
+    def no_message_about_adding(self):
+        assert self.is_not_element_present(*ProductPageLocators.MESSAGE_ABOUT_ADDING), \
+            "Success message is presented, but should not be"
+
+    def message_about_adding_disappeared(self):
+        assert self.is_disappeared(*ProductPageLocators.MESSAGE_ABOUT_ADDING), \
+            "The element has not disappeared"
 
     def book_names_is_match(self):
         book_name_in_page = self.browser.find_element(*ProductPageLocators.BOOK_NAME).text

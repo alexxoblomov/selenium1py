@@ -1,3 +1,4 @@
+import time
 import pytest
 from pages.product_page import ProductPage
 
@@ -27,5 +28,47 @@ def test_guest_can_add_product_to_basket(browser, link):
     page.open()
     page.add_to_basket()
     page.solve_quiz_and_get_code()
+    time.sleep(120)
     page.book_names_is_match()
     page.book_prices_is_match()
+
+@pytest.mark.negative
+@pytest.mark.xfail
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+    """
+    1) Открываем страницу
+    2) Добавляем товар в корзину
+    3) Ожидаем, что сообщение об успешном добавлении не появилось
+    """
+    link = "http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/"
+    page = ProductPage(browser, link)
+
+    page.open()
+    page.add_to_basket()
+    page.no_message_about_adding()
+
+@pytest.mark.negative
+def test_guest_cant_see_success_message(browser):
+    """
+    1) Открываем страницу
+    2) Ожидаем, что сообщение об успешном добавлении не появилось
+    """
+    link = "http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/"
+    page = ProductPage(browser, link)
+
+    page.open()
+    page.no_message_about_adding()
+@pytest.mark.negative
+@pytest.mark.xfail
+def test_message_disappeared_after_adding_product_to_basket(browser):
+    """
+    1) Открываем страницу
+    2) Добавляем в корзину
+    3) Ожидаем, что сообщение о добавлении пропадает со временем
+    """
+    link = "http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/"
+    page = ProductPage(browser, link)
+
+    page.open()
+    page.add_to_basket()
+    page.message_about_adding_disappeared()
