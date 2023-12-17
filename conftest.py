@@ -21,27 +21,18 @@ def browser(request):
         print("\nstart chrome browser for test...")
         options = Options()
         options.add_experimental_option('prefs', {'intl.accept_languages': language})
-
         browser = webdriver.Chrome()
-
-        """
-        У меня путь до драйвера захардкожен, но вы можете использовать другие способы, как, например в 23 строке
         # chrome_path = Service("C:\\Work\\chromedriver-win64\\chromedriver.exe")
         # browser = webdriver.Chrome(service=chrome_path)
-        """
+
 
     elif browser_name == "firefox":
         print("\nstart firefox browser for test...")
         fp = webdriver.FirefoxProfile()
         fp.set_preference("intl.accept_languages", language)
-
         browser = webdriver.Firefox()
-
-        """"
-        Аналогично и с Firefox, если он вам понадобится
-        firefox_path = Service('C:\\Program Files (x86)\\geckodriver\\geckodriver.exe')
-        browser = webdriver.Firefox(service=firefox_path, firefox_profile=fp)
-        """
+        # firefox_path = Service('C:\\Program Files (x86)\\geckodriver\\geckodriver.exe')
+        # browser = webdriver.Firefox(service=firefox_path, firefox_profile=fp)
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
     yield browser
