@@ -24,8 +24,6 @@ def browser(request):
         browser = webdriver.Chrome()
         # chrome_path = Service("C:\\Work\\chromedriver-win64\\chromedriver.exe")
         # browser = webdriver.Chrome(service=chrome_path)
-
-
     elif browser_name == "firefox":
         print("\nstart firefox browser for test...")
         fp = webdriver.FirefoxProfile()
